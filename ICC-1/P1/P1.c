@@ -140,11 +140,11 @@ int findmostSimilar(char **archive_text, char* parameter_W, int pos_parameter_W,
     //Alocando a memória e já preenchendo com zeros
     matching_matrix = (int***) calloc (count, sizeof(int**));
     for (int i = 0; i < count; i++){
-        int lenght = strlen(archive_text[i]);
+        int length = strlen(archive_text[i]);
         matching_matrix[i] = (int**) calloc (height, sizeof(int*));
         
         for (int j = 0; j < height; j++){
-            matching_matrix[i][j] = (int*) calloc (lenght, sizeof(int));    
+            matching_matrix[i][j] = (int*) calloc (length, sizeof(int));    
         }
     }    
 
@@ -153,12 +153,12 @@ int findmostSimilar(char **archive_text, char* parameter_W, int pos_parameter_W,
     //Analisando quantos chars tem em comum entre cada linha do arquivo com o parametro W 
     for (int i = 0; i < count; i++){
         //Descobrindo o tamanho da palavra do arquivo para a analise char a char
-        int word_lenght = strlen(archive_text[i]);
+        int word_length = strlen(archive_text[i]);
         for (int j = 0; j < height; j++){
             //Analisando char a char a palavra do arquivo com a palavra do parametro para descobrir
             //o índice de similaridade, procuraremos então o maior índice de similaridade e a menor
             //palavra que contenha esse índice máximo
-            for (int k = 0; k < word_lenght; k++){
+            for (int k = 0; k < word_length; k++){
                 //Na primeira linha e na primeira coluna apenas comparamos os chars
                 if (j == 0 || k == 0){
                     if (parameter_W[j] == archive_text[i][k]) matching_matrix[i][j][k]++;
@@ -184,6 +184,17 @@ int findmostSimilar(char **archive_text, char* parameter_W, int pos_parameter_W,
                 }
             }
         }
+    }
+
+    for (int i = 0; i < count; i++){
+        for (int j = 0; j < height; j++){
+            int length = strlen(archive_text[i]);
+            for (int k = 0; k < length; k++){
+                printf("%d", matching_matrix[i][j][k]);
+            }
+            printf("\n");
+        }
+        printf("\n");
     }
 
     for (int i = 0; i < count; i++){
